@@ -7,7 +7,9 @@ async function main () {
   try {
 
     const url = 'https://chromium.org'
+    console.log('lets create tab')
     tab = await CDP.New()
+    console.log('tab created')
     client = await CDP({tab})
     const {Runtime, Console, Page} = client
     await Runtime.enable()
@@ -17,8 +19,8 @@ async function main () {
       console.log(args)
 
     })
-    const {window, document} = await remoteDom.env(client)
-    console.log(document)
+    const window = await remoteDom.env(client)
+    console.log(window)
   } catch (e) {
     console.error(e)
   } finally {

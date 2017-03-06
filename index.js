@@ -1,10 +1,2 @@
-
-const remoteDom = {
-  env: createRemoteDom
-}
-
+const remoteDom = require('./lib/remote-dom')
 module.exports = remoteDom
-async function createRemoteDom (client) {
-  return {window: null, document: null}
-
-}
