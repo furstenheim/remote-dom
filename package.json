@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "chrome": "./chrome-wrapper --headless --disable-gpu --remote-debugging-port=9222 https://chromium.org"
+    "chrome-non-headless": "./chrome-wrapper --disable-gpu --remote-debugging-port=9222 https://chromium.org"
   },
   "author": "Gabriel Fürstenheim <furstenheim@gmail.com>",
   "license": "MIT"
