@@ -11,6 +11,9 @@ async function main () {
     tab = await CDP.New()
     console.log('tab created')
     client = await CDP({tab})
+    process.on('exit', function () {
+      if (client) client.close()
+    })
     const {Runtime, Console, Page} = client
     await Runtime.enable()
     await Console.enable()
@@ -20,7 +23,7 @@ async function main () {
 
     })
     const window = await remoteDom.env(client)
-    console.log(window)
+    console.log(window.document.querySelectorAll)
   } catch (e) {
     console.error(e)
   } finally {
