@@ -1,6 +1,7 @@
 const remoteDom = require('./../index')
 const CDP = require('chrome-remote-interface')
 main()
+
 async function main () {
   let client
   let tab
@@ -18,17 +19,30 @@ async function main () {
     await Runtime.enable()
     await Console.enable()
     await Page.enable()
+    Page.loadEventFired(function () {
+      browsePage(client)
+    })
+    await Page.navigate({url})
     Runtime.consoleAPICalled(function ({args}) {
       console.log(args)
 
     })
+
+
+  } catch (e) {
+    console.error(e)
+    if (tab) CDP.Close({id: tab.id})
+    if (client) client.close()
+  }
+}
+
+async function browsePage (client) {
+  try {
     const window = await remoteDom.env(client)
     const selection = await window.document.querySelectorAll('ul')
     console.log(selection)
-  } catch (e) {
-    console.error(e)
   } finally {
-    if (tab) CDP.Close({id: tab.id})
+    //if (tab) CDP.Close({id: tab.id})
     if (client) client.close()
   }
 }
