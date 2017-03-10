@@ -11,3 +11,6 @@ The aim of this library is to allow interaction with the DOM through the debuggi
   }
   
 ```
+
+### Useful links
+* https://chromedevtools.github.io/debugger-protocol-viewer/1-2/DOM/

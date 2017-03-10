@@ -23,7 +23,8 @@ async function main () {
 
     })
     const window = await remoteDom.env(client)
-    console.log(window.document.querySelectorAll)
+    const selection = await window.document.querySelectorAll('ul')
+    console.log(selection)
   } catch (e) {
     console.error(e)
   } finally {
