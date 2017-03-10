@@ -20,7 +20,7 @@ async function main () {
     await Console.enable()
     await Page.enable()
     Page.loadEventFired(function () {
-      browsePage(client)
+      browsePage(client, tab)
     })
     await Page.navigate({url})
     Runtime.consoleAPICalled(function ({args}) {
@@ -36,13 +36,19 @@ async function main () {
   }
 }
 
-async function browsePage (client) {
+async function browsePage (client, tab) {
   try {
     const window = await remoteDom.env(client)
     const selection = await window.document.querySelectorAll('ul')
     console.log(selection)
+  } catch (e){
+    console.error(e)
   } finally {
-    //if (tab) CDP.Close({id: tab.id})
+    if (tab) CDP.Close({id: tab.id})
     if (client) client.close()
   }
 }
+
+process.on('unhandledRejection', function (r) {
+  console.error(r)
+})
