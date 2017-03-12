@@ -1,6 +1,6 @@
 {
   "name": "remote-dom",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "query dom through debugging protocol",
   "main": "index.js",
   "scripts": {
