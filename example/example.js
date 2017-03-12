@@ -40,7 +40,8 @@ async function browsePage (client, tab) {
   try {
     const window = await remoteDom.env(client)
     const selection = await window.document.querySelectorAll('a')
-    console.log(selection)
+    const html = await selection[0].outerHTML
+    console.log(html)
   } catch (e){
     console.error(e)
   } finally {
