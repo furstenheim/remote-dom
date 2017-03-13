@@ -41,13 +41,14 @@ async function browsePage (client, tab) {
     const window = await remoteDom.env(client)
     const selection = await window.document.querySelectorAll('a')
     for (const element of selection) {
-      const html = await selection[0].outerHTML
+      const html = await element.outerHTML
+      await element.remove()
       console.log(html)
     }
   } catch (e){
     console.error(e)
   } finally {
-    if (tab) CDP.Close({id: tab.id})
+    //if (tab) CDP.Close({id: tab.id})
     if (client) client.close()
   }
 }
