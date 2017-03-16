@@ -42,9 +42,12 @@ async function browsePage (client, tab) {
     const selection = await window.document.querySelectorAll('a')
     for (const element of selection) {
       const html = await element.outerHTML
-      await element.remove()
-      console.log(html)
+      //await element.remove()
     }
+    const firstElement = selection[selection.length - 1]
+    const html = await firstElement.outerHTML
+    console.log(html)
+    await firstElement.click()
   } catch (e){
     console.error(e)
   } finally {
