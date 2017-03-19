@@ -51,7 +51,7 @@ async function browsePage (client, tab) {
   } catch (e){
     console.error(e)
   } finally {
-    //if (tab) CDP.Close({id: tab.id})
+    if (tab) CDP.Close({id: tab.id})
     if (client) client.close()
   }
 }
