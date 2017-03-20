@@ -1,2 +1,2 @@
-const remoteDom = require('./lib/remote-dom')
+const remoteDom = require('./lib/dom')
 module.exports = remoteDom

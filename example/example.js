@@ -46,7 +46,7 @@ async function browsePage (client, tab) {
     }
     const firstElement = selection[selection.length - 1]
     const html = await firstElement.outerHTML
-    console.log(html)
+    console.log('click' in firstElement)
     await firstElement.click()
   } catch (e){
     console.error(e)
