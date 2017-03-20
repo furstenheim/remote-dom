@@ -54,6 +54,9 @@ async function browsePage (client, tab) {
     console.log(localName)
     console.log(innerHTML)
     console.log(classList)
+    const clientRect = await firstElement.getBoundingClientRect()
+    const top = await clientRect.top
+    console.log(top)
     await firstElement.click()
   } catch (e){
     console.error(e)
