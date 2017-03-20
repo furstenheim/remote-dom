@@ -47,11 +47,18 @@ async function browsePage (client, tab) {
     const firstElement = selection[selection.length - 1]
     const html = await firstElement.outerHTML
     console.log('click' in firstElement)
+    const localName = await firstElement.localName
+    const prefix = await firstElement.prefix
+    const innerHTML = await firstElement.innerHTML
+    const classList = await firstElement.classList
+    console.log(localName)
+    console.log(innerHTML)
+    console.log(classList)
     await firstElement.click()
   } catch (e){
     console.error(e)
   } finally {
-    //if (tab) CDP.Close({id: tab.id})
+    if (tab) CDP.Close({id: tab.id})
     if (client) client.close()
   }
 }
