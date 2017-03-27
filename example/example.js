@@ -57,6 +57,8 @@ async function browsePage (client, tab) {
     const clientRect = await firstElement.getBoundingClientRect()
     const top = await clientRect.top
     console.log(top)
+    const matches = await firstElement.matches('a')
+    console.log(matches)
     await firstElement.click()
   } catch (e){
     console.error(e)
