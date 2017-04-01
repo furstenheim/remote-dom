@@ -6,13 +6,15 @@
   "scripts": {
     "example": "nodemon example/example.js --exec babel-node --plugins=meaningful-logs",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "create-element": "node scripts/create-html-element.js",
     "chrome-non-headless": "./chrome-wrapper --disable-gpu --remote-debugging-port=9222 https://chromium.org"
   },
   "author": "Gabriel Fürstenheim <furstenheim@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.23.0",
-    "babel-plugin-meaningful-logs": "^1.0.2"
+    "babel-plugin-meaningful-logs": "^1.0.2",
+    "minimist": "^1.2.0"
   },
   "dependencies": {
     "lodash": "^4.17.4"
