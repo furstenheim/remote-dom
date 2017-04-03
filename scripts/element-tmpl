@@ -1,0 +1,9 @@
+const HTMLElementImpl = require('./HTMLElement-impl').implementation
+
+class <%= implementation =%> extends HTMLElementImpl {
+
+}
+
+module.exports = {
+  implementation: <%= implementation =%>
+}
