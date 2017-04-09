@@ -44,13 +44,13 @@ function fileContent (idl) {
       if (jsType) object.returnType = jsType
     }
     if (method.type === 'attribute') {
-      const jsType = idlType2js(method.idlType.idleType)
-      object.returnType = jsType
+      const jsType = idlType2js(method.idlType.idlType)
+      object.type = jsType
       if (!method.readonly) object.setter = true
     }
     return JSON.stringify(object)
   }).join(',\n')
-  const allowedMethodsString = `utils.defineRemoteProperties(${name}Impl.prototype, [\n${allowedMethodsArray}\n]\n`
+  const allowedMethodsString = `utils.defineRemoteProperties(${name}Impl.prototype, [\n${allowedMethodsArray}\n])\n`
   const content = `const ${inheritance}Impl = require('./${inheritance}-impl').implementation
 ${allowedMethods.length ? "const utils = require('./../../utils')\n" : ''}
 class ${name}Impl extends ${inheritance}Impl {
