@@ -7,7 +7,7 @@ module.exports = function (name) {
   if (!name.match(/^HTML/)) {
     throw new Error('Wrong name')
   }
-  const idl = webidl2.parse(fs.readFileSync(`./lib/remote-dom/living/nodes/${name}.idl`).toString())[0]
+  const idl = webidl2.parse(fs.readFileSync(`./lib/remote-dom/living/nodes/${name}.idl`).toString())
 
 
 
@@ -19,9 +19,12 @@ module.exports = function (name) {
   addToIndex(name, fileName)
 
 
-  function fileContent (idl) {
+  function fileContent (idls) {
+    const idl = idls[0]
+    // Not sure what the other means, better add it to todo
     const name = idl.name
     const inheritance = idl.inheritance
+    if (!inheritance) throw new Error('Missing inheritance for ' + name)
 
     const [allowedMethods, todos] = _.partition(idl.members, function (member) {
       return (member.type === 'attribute'
@@ -30,6 +33,7 @@ module.exports = function (name) {
         _.includes(['DOMString', 'boolean', 'number', 'long', 'void'], member.idlType.idlType)
         && member.arguments.length === 0)
     })
+    todos.push(..._.flatten(_.map(idls.slice(1), 'members')))
     const todosString = _.map(todos, t => `// TODO ${t.name}`).join('\n')
     const allowedMethodsArray = _.map(allowedMethods, function (method) {
       const object = {name: method.name}
@@ -73,7 +77,8 @@ module.exports = {
       'DOMString': 'string',
       'number': 'number',
       'boolean': 'boolean',
-      'long': 'number'
+      'long': 'number',
+      'unsigned long': 'number'
     }
     return idlType2js[type]
   }
