@@ -28,12 +28,14 @@ module.exports = function (name) {
 
     const [allowedMethods, todos] = _.partition(idl.members, function (member) {
       return (member.type === 'attribute'
-        && _.includes(['DOMString', 'boolean', 'number', 'long'], member.idlType.idlType)) ||
+        && !!idlType2js(member.idlType.idlType)) ||
         (member.type === 'operation' &&
-        _.includes(['DOMString', 'boolean', 'number', 'long', 'void'], member.idlType.idlType)
+        (!!idlType2js(member.idlType.idlType) || member.idlType.idlType === 'void')
         && member.arguments.length === 0)
     })
-    todos.push(..._.flatten(_.map(idls.slice(1), 'members')))
+    todos.push(..._.flatten(_.filter(_.map(idls.slice(1), 'members'))))
+    const missingInterfaces = _.filter(idls.slice(1), 'implements')
+    const missingInterfacesString = missingInterfaces.map(i =>  `// TODO interface ${i.implements}`).join('\n')
     const todosString = _.map(todos, t => `// TODO ${t.name}`).join('\n')
     const allowedMethodsArray = _.map(allowedMethods, function (method) {
       const object = {name: method.name}
@@ -55,7 +57,7 @@ ${allowedMethods.length ? "const utils = require('./../../utils')\n" : ''}
 class ${name}Impl extends ${inheritance}Impl {
 
 }
-
+${missingInterfaces.length ? missingInterfacesString + '\n': ''}
 ${todos.length ? todosString + '\n' : ''}
 ${allowedMethods.length ? allowedMethodsString: ''}
 module.exports = {
@@ -78,6 +80,7 @@ module.exports = {
       'number': 'number',
       'boolean': 'boolean',
       'long': 'number',
+      'double': 'number',
       'unsigned long': 'number'
     }
     return idlType2js[type]
