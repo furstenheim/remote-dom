@@ -45,6 +45,8 @@ async function browsePage (client, tab) {
       //await element.remove()
     }
     const firstElement = selection[selection.length - 1]
+    const firstChild = await window.document.firstElementChild
+    const firstChildHtml = await firstChild.outerHTML
     const html = await firstElement.outerHTML
     console.log('click' in firstElement)
     const localName = await firstElement.localName

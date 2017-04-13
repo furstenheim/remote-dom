@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "example": "nodemon example/example.js --exec babel-node --plugins=meaningful-logs",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha test --watch",
     "create-element": "node scripts/create-html-element.js",
     "chrome-non-headless": "./chrome-wrapper --disable-gpu --remote-debugging-port=9222 https://chromium.org"
   },
@@ -14,7 +14,10 @@
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-plugin-meaningful-logs": "^1.0.2",
+    "chai": "^3.5.0",
     "minimist": "^1.2.0",
+    "mocha": "^3.2.0",
+    "mocha-sugar-free": "^1.3.1",
     "readline": "^1.3.0",
     "webidl2": "^2.3.0"
   },
